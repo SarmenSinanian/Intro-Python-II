@@ -1,4 +1,5 @@
 from room import Room
+from player import Player
 
 # Declare all the rooms
 
@@ -33,6 +34,12 @@ room['narrow'].w_to = room['foyer']
 room['narrow'].n_to = room['treasure']
 room['treasure'].s_to = room['narrow']
 
+print(room['outside'].n_to)
+
+player = Player(input('What is your name?'), room['outside'])
+
+print(f'Hello, {player.name}.\n\n{player.current_room}')
+
 #
 # Main
 #
@@ -49,3 +56,51 @@ room['treasure'].s_to = room['narrow']
 # Print an error message if the movement isn't allowed.
 #
 # If the user enters "q", quit the game.
+
+# Second Iteration
+# BELOW IS BASICALLY A 'CONTROLLER' AND A 'VIEW'
+# FAT MODELS (AS MUCH CODE AS POSSIBLE IN THE MODEL LAYER); SKINNY CONTROLLERS (
+# NOT AS MUCH IN THE CONTROLLER)
+print(player.current_room)
+while True:
+    cmd = input('->').lower() # THE STUFF TO THE LEFT IS THE 'CONTROLLER LAYER'
+    if cmd in ['n', 's', 'e', 'w']:
+        # Move to that room
+        player.travel(cmd) # THE STUFF TO THE LEFT IS THE 'MODEL LAYER'
+    elif cmd == 'q':
+        print('Goodbye!')
+        exit()
+    else:
+        print('I did not understand that command.')
+
+# First Iteration
+# while True:
+#     print(Player.current_room)
+#     cmd = input('->')
+#     if cmd in ['n','s','e','w']:
+#         # Move to that room
+#         print('Move' + cmd)
+#         if cmd == 'n':
+#             if player.current_room.n_to is not None:
+#                 player.current_room = player.current_room.n_to
+#             else:
+#                 print('You cannot move in that direction')
+#         if cmd == 'n':
+#             if player.current_room.s_to is not None:
+#                 player.current_room = player.current_room.s_to
+#             else:
+#                 print('You cannot move in that direction')
+#         if cmd == 'n':
+#             if player.current_room.e_to is not None:
+#                 player.current_room = player.current_room.e_to
+#             else:
+#                 print('You cannot move in that direction')
+#         if cmd == 'n':
+#             if player.current_room.w_to is not None:
+#                 player.current_room = player.current_room.w_to
+#             else:
+#                 print('You cannot move in that direction')
+#     elif cmd == 'q':
+#         exit()
+#     else:
+#         print('I did not understand that command.')
